@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as ProjetsRouteImport } from './routes/projets'
 import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,9 +24,9 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PortfolioRoute = PortfolioRouteImport.update({
-  id: '/portfolio',
-  path: '/portfolio',
+const ProjetsRoute = ProjetsRouteImport.update({
+  id: '/projets',
+  path: '/projets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArticlesRoute = ArticlesRouteImport.update({
@@ -69,7 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/articles': typeof ArticlesRoute
-  '/portfolio': typeof PortfolioRoute
+  '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
@@ -80,7 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/articles': typeof ArticlesRoute
-  '/portfolio': typeof PortfolioRoute
+  '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
@@ -92,7 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/articles': typeof ArticlesRoute
-  '/portfolio': typeof PortfolioRoute
+  '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
@@ -105,7 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/articles'
-    | '/portfolio'
+    | '/projets'
     | '/services'
     | '/design/option-a'
     | '/design/option-b'
@@ -116,7 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/articles'
-    | '/portfolio'
+    | '/projets'
     | '/services'
     | '/design/option-a'
     | '/design/option-b'
@@ -127,7 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/articles'
-    | '/portfolio'
+    | '/projets'
     | '/services'
     | '/design/option-a'
     | '/design/option-b'
@@ -139,7 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ArticlesRoute: typeof ArticlesRoute
-  PortfolioRoute: typeof PortfolioRoute
+  ProjetsRoute: typeof ProjetsRoute
   ServicesRoute: typeof ServicesRoute
   DesignOptionARoute: typeof DesignOptionARoute
   DesignOptionBRoute: typeof DesignOptionBRoute
@@ -156,11 +156,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/portfolio': {
-      id: '/portfolio'
-      path: '/portfolio'
-      fullPath: '/portfolio'
-      preLoaderRoute: typeof PortfolioRouteImport
+    '/projets': {
+      id: '/projets'
+      path: '/projets'
+      fullPath: '/projets'
+      preLoaderRoute: typeof ProjetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/articles': {
@@ -219,7 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ArticlesRoute: ArticlesRoute,
-  PortfolioRoute: PortfolioRoute,
+  ProjetsRoute: ProjetsRoute,
   ServicesRoute: ServicesRoute,
   DesignOptionARoute: DesignOptionARoute,
   DesignOptionBRoute: DesignOptionBRoute,

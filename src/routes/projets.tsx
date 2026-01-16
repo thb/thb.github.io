@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/portfolio')({
-  component: Portfolio,
+export const Route = createFileRoute('/projets')({
+  component: Projets,
 })
 
-function Portfolio() {
+function Projets() {
   return (
     <section className="portfolio-page">
-      <h1>Portfolio</h1>
+      <h1>Projets</h1>
       <p className="portfolio-intro">Une sélection de missions et projets.</p>
 
       <div className="portfolio-scroll">
