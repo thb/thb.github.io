@@ -102,6 +102,18 @@ main {
   color: var(--text);
 }
 
+/* Signature image (home) */
+.signature-image {
+  margin-top: 2rem;
+}
+
+.signature-image img {
+  width: 100%;
+  aspect-ratio: 21/9;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
 /* Sections */
 section h1 {
   font-size: 2rem;
@@ -140,6 +152,49 @@ section h2 {
 }
 
 /* Portfolio */
+.portfolio-intro {
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.portfolio-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  margin: 0 -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.portfolio-scroll article {
+  flex: 0 0 280px;
+}
+
+.portfolio-scroll img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+
+.portfolio-scroll article:hover img {
+  filter: grayscale(0%);
+}
+
+.portfolio-scroll h2 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.portfolio-scroll p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
 .project-grid {
   display: grid;
   gap: 2rem;
@@ -180,6 +235,32 @@ section h2 {
 }
 
 /* About */
+.about-header {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.about-header .portrait {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: grayscale(100%);
+  border-radius: 50%;
+}
+
+.about-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.about-intro {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
 .about-content {
   display: grid;
   gap: 2.5rem;
@@ -654,6 +735,11 @@ footer p {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .about-header {
+    grid-template-columns: 80px 1fr;
+    gap: 1rem;
+  }
+
   .hero-split,
   .case-item,
   .portrait-section {

@@ -6,14 +6,28 @@ export const Route = createFileRoute('/about')({
 
 function About() {
   return (
-    <section>
-      <h1>About</h1>
+    <section className="about-page">
+      <header className="about-header">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
+          alt="Portrait"
+          className="portrait"
+        />
+        <div>
+          <h1>About</h1>
+          <p className="about-intro">
+            Tech, business, process, UX — une vision transversale
+            pour aborder les problèmes dans leur globalité.
+          </p>
+        </div>
+      </header>
+
       <div className="about-content">
         <article>
           <h2>Profil 360°</h2>
           <p>
-            Tech, business, process, UX — j'ai cultivé une vision transversale
-            qui me permet d'aborder les problèmes dans leur globalité.
+            J'ai cultivé une approche qui va de la stratégie à l'implémentation,
+            en passant par l'architecture, le recrutement et les process.
           </p>
           <p>Ma conviction : les meilleures solutions sont souvent les plus simples.</p>
         </article>
