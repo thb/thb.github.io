@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
-import { Route as BlogRouteImport } from './routes/blog'
+import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DesignIndexRouteImport } from './routes/design/index'
@@ -29,9 +29,9 @@ const PortfolioRoute = PortfolioRouteImport.update({
   path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
+const ArticlesRoute = ArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -68,7 +68,7 @@ const DesignOptionARoute = DesignOptionARouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
+  '/articles': typeof ArticlesRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/design/option-a': typeof DesignOptionARoute
@@ -79,7 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
+  '/articles': typeof ArticlesRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/design/option-a': typeof DesignOptionARoute
@@ -91,7 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/blog': typeof BlogRoute
+  '/articles': typeof ArticlesRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/design/option-a': typeof DesignOptionARoute
@@ -104,7 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/blog'
+    | '/articles'
     | '/portfolio'
     | '/services'
     | '/design/option-a'
@@ -115,7 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/blog'
+    | '/articles'
     | '/portfolio'
     | '/services'
     | '/design/option-a'
@@ -126,7 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/blog'
+    | '/articles'
     | '/portfolio'
     | '/services'
     | '/design/option-a'
@@ -138,7 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  BlogRoute: typeof BlogRoute
+  ArticlesRoute: typeof ArticlesRoute
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
   DesignOptionARoute: typeof DesignOptionARoute
@@ -163,11 +163,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
+    '/articles': {
+      id: '/articles'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -218,7 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BlogRoute: BlogRoute,
+  ArticlesRoute: ArticlesRoute,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
   DesignOptionARoute: DesignOptionARoute,

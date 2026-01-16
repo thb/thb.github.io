@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/blog')({
-  component: Blog,
+export const Route = createFileRoute('/articles')({
+  component: Articles,
 })
 
-function Blog() {
+function Articles() {
   return (
     <section>
-      <h1>Blog</h1>
+      <h1>Articles</h1>
       <ul className="post-list">
         <li>
           <article>
