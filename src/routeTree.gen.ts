@@ -14,6 +14,10 @@ import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DesignIndexRouteImport } from './routes/design/index'
+import { Route as DesignOptionCRouteImport } from './routes/design/option-c'
+import { Route as DesignOptionBRouteImport } from './routes/design/option-b'
+import { Route as DesignOptionARouteImport } from './routes/design/option-a'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -40,6 +44,26 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DesignIndexRoute = DesignIndexRouteImport.update({
+  id: '/design/',
+  path: '/design/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignOptionCRoute = DesignOptionCRouteImport.update({
+  id: '/design/option-c',
+  path: '/design/option-c',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignOptionBRoute = DesignOptionBRouteImport.update({
+  id: '/design/option-b',
+  path: '/design/option-b',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignOptionARoute = DesignOptionARouteImport.update({
+  id: '/design/option-a',
+  path: '/design/option-a',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +71,10 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/design/option-a': typeof DesignOptionARoute
+  '/design/option-b': typeof DesignOptionBRoute
+  '/design/option-c': typeof DesignOptionCRoute
+  '/design': typeof DesignIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +82,10 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/design/option-a': typeof DesignOptionARoute
+  '/design/option-b': typeof DesignOptionBRoute
+  '/design/option-c': typeof DesignOptionCRoute
+  '/design': typeof DesignIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +94,45 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/design/option-a': typeof DesignOptionARoute
+  '/design/option-b': typeof DesignOptionBRoute
+  '/design/option-c': typeof DesignOptionCRoute
+  '/design/': typeof DesignIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/blog' | '/portfolio' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/portfolio'
+    | '/services'
+    | '/design/option-a'
+    | '/design/option-b'
+    | '/design/option-c'
+    | '/design'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/blog' | '/portfolio' | '/services'
-  id: '__root__' | '/' | '/about' | '/blog' | '/portfolio' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/portfolio'
+    | '/services'
+    | '/design/option-a'
+    | '/design/option-b'
+    | '/design/option-c'
+    | '/design'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/portfolio'
+    | '/services'
+    | '/design/option-a'
+    | '/design/option-b'
+    | '/design/option-c'
+    | '/design/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +141,10 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
+  DesignOptionARoute: typeof DesignOptionARoute
+  DesignOptionBRoute: typeof DesignOptionBRoute
+  DesignOptionCRoute: typeof DesignOptionCRoute
+  DesignIndexRoute: typeof DesignIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +184,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/design/': {
+      id: '/design/'
+      path: '/design'
+      fullPath: '/design'
+      preLoaderRoute: typeof DesignIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design/option-c': {
+      id: '/design/option-c'
+      path: '/design/option-c'
+      fullPath: '/design/option-c'
+      preLoaderRoute: typeof DesignOptionCRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design/option-b': {
+      id: '/design/option-b'
+      path: '/design/option-b'
+      fullPath: '/design/option-b'
+      preLoaderRoute: typeof DesignOptionBRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design/option-a': {
+      id: '/design/option-a'
+      path: '/design/option-a'
+      fullPath: '/design/option-a'
+      preLoaderRoute: typeof DesignOptionARouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +221,10 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
+  DesignOptionARoute: DesignOptionARoute,
+  DesignOptionBRoute: DesignOptionBRoute,
+  DesignOptionCRoute: DesignOptionCRoute,
+  DesignIndexRoute: DesignIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
