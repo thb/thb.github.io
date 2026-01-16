@@ -24,10 +24,17 @@ function Services() {
           </p>
         </article>
         <article>
-          <h2>Accompagnement IA</h2>
+          <h2>Accompagnement IA tech</h2>
           <p>
             Intégration de l'IA dans vos processus de développement.
             Stratégie, formation, mise en œuvre.
+          </p>
+        </article>
+        <article>
+          <h2>Accompagnement IA global</h2>
+          <p>
+            Diagnostic IA sur l'ensemble de l'entreprise.
+            Des outils quotidiens jusqu'à la refonte de business units avec l'IA.
           </p>
         </article>
       </div>
