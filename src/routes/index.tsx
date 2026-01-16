@@ -8,7 +8,8 @@ function Index() {
   return (
     <section className="hero">
       <h1>thb</h1>
-      <p className="tagline">developer & creator</p>
+      <p className="tagline">Consultant Tech · CTO as a Service</p>
+      <p className="baseline">Je transforme la complexité en solutions simples.</p>
     </section>
   )
 }
