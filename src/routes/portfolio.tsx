@@ -7,7 +7,7 @@ export const Route = createFileRoute('/portfolio')({
 function Portfolio() {
   return (
     <section>
-      <h1>portfolio</h1>
+      <h1>Portfolio</h1>
       <div className="project-grid">
         <article className="project">
           <h2>Projet 1</h2>

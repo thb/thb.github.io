@@ -7,7 +7,7 @@ export const Route = createFileRoute('/services')({
 function Services() {
   return (
     <section>
-      <h1>services</h1>
+      <h1>Services</h1>
       <div className="services-list">
         <article>
           <h2>CTO as a Service</h2>

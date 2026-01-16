@@ -7,7 +7,7 @@ export const Route = createFileRoute('/blog')({
 function Blog() {
   return (
     <section>
-      <h1>blog</h1>
+      <h1>Blog</h1>
       <ul className="post-list">
         <li>
           <article>

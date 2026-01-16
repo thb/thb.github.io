@@ -7,7 +7,7 @@ export const Route = createFileRoute('/about')({
 function About() {
   return (
     <section>
-      <h1>about</h1>
+      <h1>About</h1>
       <div className="about-content">
         <article>
           <h2>Profil 360°</h2>
