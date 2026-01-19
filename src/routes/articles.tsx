@@ -1,4 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { articles } from '../data/articles'
 
 export const Route = createFileRoute('/articles')({
   component: Articles,
@@ -6,16 +7,32 @@ export const Route = createFileRoute('/articles')({
 
 function Articles() {
   return (
-    <section>
+    <section className="articles-page">
       <h1>Articles</h1>
+      <p className="articles-intro">
+        Retours d'expérience sur l'utilisation des agents IA en développement.
+      </p>
       <ul className="post-list">
-        <li>
-          <article>
-            <time>2025-01-15</time>
-            <h2>Premier article</h2>
-            <p>Description de l'article...</p>
-          </article>
-        </li>
+        {articles.map((article) => (
+          <li key={article.slug}>
+            <article>
+              <time>{article.date}</time>
+              <h2>
+                <Link to="/articles/$slug" params={{ slug: article.slug }}>
+                  {article.title}
+                </Link>
+              </h2>
+              <p>{article.description}</p>
+              <div className="tags">
+                {article.tags.map((tag) => (
+                  <span key={tag} className="tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </article>
+          </li>
+        ))}
       </ul>
     </section>
   )

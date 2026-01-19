@@ -18,6 +18,7 @@ import { Route as DesignIndexRouteImport } from './routes/design/index'
 import { Route as DesignOptionCRouteImport } from './routes/design/option-c'
 import { Route as DesignOptionBRouteImport } from './routes/design/option-b'
 import { Route as DesignOptionARouteImport } from './routes/design/option-a'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -64,13 +65,19 @@ const DesignOptionARoute = DesignOptionARouteImport.update({
   path: '/design/option-a',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ArticlesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/articles': typeof ArticlesRoute
+  '/articles': typeof ArticlesRouteWithChildren
   '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
   '/design/option-c': typeof DesignOptionCRoute
@@ -79,9 +86,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/articles': typeof ArticlesRoute
+  '/articles': typeof ArticlesRouteWithChildren
   '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
   '/design/option-c': typeof DesignOptionCRoute
@@ -91,9 +99,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/articles': typeof ArticlesRoute
+  '/articles': typeof ArticlesRouteWithChildren
   '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
   '/design/option-c': typeof DesignOptionCRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/articles'
     | '/projets'
     | '/services'
+    | '/articles/$slug'
     | '/design/option-a'
     | '/design/option-b'
     | '/design/option-c'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/articles'
     | '/projets'
     | '/services'
+    | '/articles/$slug'
     | '/design/option-a'
     | '/design/option-b'
     | '/design/option-c'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/articles'
     | '/projets'
     | '/services'
+    | '/articles/$slug'
     | '/design/option-a'
     | '/design/option-b'
     | '/design/option-c'
@@ -138,7 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ArticlesRoute: typeof ArticlesRoute
+  ArticlesRoute: typeof ArticlesRouteWithChildren
   ProjetsRoute: typeof ProjetsRoute
   ServicesRoute: typeof ServicesRoute
   DesignOptionARoute: typeof DesignOptionARoute
@@ -212,13 +224,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesignOptionARouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
+      parentRoute: typeof ArticlesRoute
+    }
   }
 }
+
+interface ArticlesRouteChildren {
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
+}
+
+const ArticlesRouteChildren: ArticlesRouteChildren = {
+  ArticlesSlugRoute: ArticlesSlugRoute,
+}
+
+const ArticlesRouteWithChildren = ArticlesRoute._addFileChildren(
+  ArticlesRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ArticlesRoute: ArticlesRoute,
+  ArticlesRoute: ArticlesRouteWithChildren,
   ProjetsRoute: ProjetsRoute,
   ServicesRoute: ServicesRoute,
   DesignOptionARoute: DesignOptionARoute,
