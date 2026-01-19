@@ -14,8 +14,10 @@ import { agentBrowserVercel } from './agent-browser-vercel'
 import { specificationsIA } from './specifications-ia'
 import { configurationServeurs } from './configuration-serveurs'
 import { iaGithub } from './ia-github'
+import { promptsMagiques } from './prompts-magiques'
 
 export const articles: Article[] = [
+  promptsMagiques,
   iaGithub,
   configurationServeurs,
   specificationsIA,

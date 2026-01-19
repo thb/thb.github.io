@@ -5,16 +5,6 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>thb</title>
-    <script>
-      // SPA redirect handler for GitHub Pages
-      (function() {
-        const params = new URLSearchParams(window.location.search);
-        const path = params.get('p');
-        if (path) {
-          window.history.replaceState(null, '', decodeURIComponent(path));
-        }
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>
