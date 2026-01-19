@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ProjetsRouteImport } from './routes/projets'
-import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DesignIndexRouteImport } from './routes/design/index'
+import { Route as ArticlesIndexRouteImport } from './routes/articles.index'
 import { Route as DesignOptionCRouteImport } from './routes/design/option-c'
 import { Route as DesignOptionBRouteImport } from './routes/design/option-b'
 import { Route as DesignOptionARouteImport } from './routes/design/option-a'
@@ -30,11 +30,6 @@ const ProjetsRoute = ProjetsRouteImport.update({
   path: '/projets',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArticlesRoute = ArticlesRouteImport.update({
-  id: '/articles',
-  path: '/articles',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -48,6 +43,11 @@ const IndexRoute = IndexRouteImport.update({
 const DesignIndexRoute = DesignIndexRouteImport.update({
   id: '/design/',
   path: '/design/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DesignOptionCRoute = DesignOptionCRouteImport.update({
@@ -66,46 +66,46 @@ const DesignOptionARoute = DesignOptionARouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ArticlesRoute,
+  id: '/articles/$slug',
+  path: '/articles/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/articles': typeof ArticlesRouteWithChildren
   '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
   '/design/option-c': typeof DesignOptionCRoute
+  '/articles': typeof ArticlesIndexRoute
   '/design': typeof DesignIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/articles': typeof ArticlesRouteWithChildren
   '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
   '/design/option-c': typeof DesignOptionCRoute
+  '/articles': typeof ArticlesIndexRoute
   '/design': typeof DesignIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/articles': typeof ArticlesRouteWithChildren
   '/projets': typeof ProjetsRoute
   '/services': typeof ServicesRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/design/option-a': typeof DesignOptionARoute
   '/design/option-b': typeof DesignOptionBRoute
   '/design/option-c': typeof DesignOptionCRoute
+  '/articles/': typeof ArticlesIndexRoute
   '/design/': typeof DesignIndexRoute
 }
 export interface FileRouteTypes {
@@ -113,49 +113,50 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/articles'
     | '/projets'
     | '/services'
     | '/articles/$slug'
     | '/design/option-a'
     | '/design/option-b'
     | '/design/option-c'
+    | '/articles'
     | '/design'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/articles'
     | '/projets'
     | '/services'
     | '/articles/$slug'
     | '/design/option-a'
     | '/design/option-b'
     | '/design/option-c'
+    | '/articles'
     | '/design'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/articles'
     | '/projets'
     | '/services'
     | '/articles/$slug'
     | '/design/option-a'
     | '/design/option-b'
     | '/design/option-c'
+    | '/articles/'
     | '/design/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ArticlesRoute: typeof ArticlesRouteWithChildren
   ProjetsRoute: typeof ProjetsRoute
   ServicesRoute: typeof ServicesRoute
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
   DesignOptionARoute: typeof DesignOptionARoute
   DesignOptionBRoute: typeof DesignOptionBRoute
   DesignOptionCRoute: typeof DesignOptionCRoute
+  ArticlesIndexRoute: typeof ArticlesIndexRoute
   DesignIndexRoute: typeof DesignIndexRoute
 }
 
@@ -173,13 +174,6 @@ declare module '@tanstack/react-router' {
       path: '/projets'
       fullPath: '/projets'
       preLoaderRoute: typeof ProjetsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/articles': {
-      id: '/articles'
-      path: '/articles'
-      fullPath: '/articles'
-      preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -201,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/design'
       fullPath: '/design'
       preLoaderRoute: typeof DesignIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/': {
+      id: '/articles/'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ArticlesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/design/option-c': {
@@ -226,35 +227,24 @@ declare module '@tanstack/react-router' {
     }
     '/articles/$slug': {
       id: '/articles/$slug'
-      path: '/$slug'
+      path: '/articles/$slug'
       fullPath: '/articles/$slug'
       preLoaderRoute: typeof ArticlesSlugRouteImport
-      parentRoute: typeof ArticlesRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface ArticlesRouteChildren {
-  ArticlesSlugRoute: typeof ArticlesSlugRoute
-}
-
-const ArticlesRouteChildren: ArticlesRouteChildren = {
-  ArticlesSlugRoute: ArticlesSlugRoute,
-}
-
-const ArticlesRouteWithChildren = ArticlesRoute._addFileChildren(
-  ArticlesRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ArticlesRoute: ArticlesRouteWithChildren,
   ProjetsRoute: ProjetsRoute,
   ServicesRoute: ServicesRoute,
+  ArticlesSlugRoute: ArticlesSlugRoute,
   DesignOptionARoute: DesignOptionARoute,
   DesignOptionBRoute: DesignOptionBRoute,
   DesignOptionCRoute: DesignOptionCRoute,
+  ArticlesIndexRoute: ArticlesIndexRoute,
   DesignIndexRoute: DesignIndexRoute,
 }
 export const routeTree = rootRouteImport
