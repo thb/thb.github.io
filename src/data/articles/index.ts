@@ -17,8 +17,10 @@ import { iaGithub } from './ia-github'
 import { promptsMagiques } from './prompts-magiques'
 import { travailParalleleAgents } from './travail-parallele-agents'
 import { dashboardGithubActions } from './dashboard-github-actions'
+import { powerUsersIA } from './power-users-ia'
 
 export const articles: Article[] = [
+  powerUsersIA,
   dashboardGithubActions,
   travailParalleleAgents,
   promptsMagiques,
