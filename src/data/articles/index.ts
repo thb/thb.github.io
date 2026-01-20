@@ -16,8 +16,10 @@ import { configurationServeurs } from './configuration-serveurs'
 import { iaGithub } from './ia-github'
 import { promptsMagiques } from './prompts-magiques'
 import { travailParalleleAgents } from './travail-parallele-agents'
+import { dashboardGithubActions } from './dashboard-github-actions'
 
 export const articles: Article[] = [
+  dashboardGithubActions,
   travailParalleleAgents,
   promptsMagiques,
   iaGithub,
