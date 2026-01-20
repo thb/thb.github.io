@@ -15,8 +15,10 @@ import { specificationsIA } from './specifications-ia'
 import { configurationServeurs } from './configuration-serveurs'
 import { iaGithub } from './ia-github'
 import { promptsMagiques } from './prompts-magiques'
+import { travailParalleleAgents } from './travail-parallele-agents'
 
 export const articles: Article[] = [
+  travailParalleleAgents,
   promptsMagiques,
   iaGithub,
   configurationServeurs,
