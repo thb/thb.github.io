@@ -18,8 +18,10 @@ import { promptsMagiques } from './prompts-magiques'
 import { travailParalleleAgents } from './travail-parallele-agents'
 import { dashboardGithubActions } from './dashboard-github-actions'
 import { powerUsersIA } from './power-users-ia'
+import { cliServeurIA } from './cli-serveur-ia'
 
 export const articles: Article[] = [
+  cliServeurIA,
   powerUsersIA,
   dashboardGithubActions,
   travailParalleleAgents,
