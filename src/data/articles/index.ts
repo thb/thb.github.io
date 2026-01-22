@@ -19,8 +19,10 @@ import { travailParalleleAgents } from './travail-parallele-agents'
 import { dashboardGithubActions } from './dashboard-github-actions'
 import { powerUsersIA } from './power-users-ia'
 import { cliServeurIA } from './cli-serveur-ia'
+import { claudeCodeTokens } from './claude-code-tokens'
 
 export const articles: Article[] = [
+  claudeCodeTokens,
   cliServeurIA,
   powerUsersIA,
   dashboardGithubActions,
