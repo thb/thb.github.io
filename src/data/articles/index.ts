@@ -22,8 +22,10 @@ import { cliServeurIA } from './cli-serveur-ia'
 import { claudeCodeTokens } from './claude-code-tokens'
 import { claudeCodeSkills } from './claude-code-skills'
 import { optimisationPerfIA } from './optimisation-perf-ia'
+import { metierChangeIA } from './metier-change-ia'
 
 export const articles: Article[] = [
+  metierChangeIA,
   claudeCodeSkills,
   optimisationPerfIA,
   claudeCodeTokens,
