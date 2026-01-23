@@ -20,8 +20,12 @@ import { dashboardGithubActions } from './dashboard-github-actions'
 import { powerUsersIA } from './power-users-ia'
 import { cliServeurIA } from './cli-serveur-ia'
 import { claudeCodeTokens } from './claude-code-tokens'
+import { claudeCodeSkills } from './claude-code-skills'
+import { optimisationPerfIA } from './optimisation-perf-ia'
 
 export const articles: Article[] = [
+  claudeCodeSkills,
+  optimisationPerfIA,
   claudeCodeTokens,
   cliServeurIA,
   powerUsersIA,
