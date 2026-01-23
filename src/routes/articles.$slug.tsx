@@ -40,13 +40,34 @@ function ArticlePage() {
 }
 
 function parseMarkdown(content: string): string {
-  return content
+  // 1. Extract code blocks to protect them from transformation
+  const codeBlocks: string[] = []
+  let processed = content
     // Code blocks with language
-    .replace(/```(\w+)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
+    .replace(/```(\w+)\n([\s\S]*?)```/g, (_, lang, code) => {
+      const index = codeBlocks.length
+      codeBlocks.push(`<pre><code class="language-${lang}">${escapeHtml(code)}</code></pre>`)
+      return `___CODEBLOCK_${index}___`
+    })
     // Code blocks without language
-    .replace(/```\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-    // Inline code
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/```\n?([\s\S]*?)```/g, (_, code) => {
+      const index = codeBlocks.length
+      codeBlocks.push(`<pre><code>${escapeHtml(code)}</code></pre>`)
+      return `___CODEBLOCK_${index}___`
+    })
+
+  // 2. Extract inline code
+  const inlineCode: string[] = []
+  processed = processed.replace(/`([^`]+)`/g, (_, code) => {
+    const index = inlineCode.length
+    inlineCode.push(`<code>${escapeHtml(code)}</code>`)
+    return `___INLINECODE_${index}___`
+  })
+
+  // 3. Apply markdown transformations
+  processed = processed
+    // Blockquotes
+    .replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>')
     // Headers
     .replace(/^### (.*$)/gm, '<h3>$1</h3>')
     .replace(/^## (.*$)/gm, '<h2>$1</h2>')
@@ -56,27 +77,55 @@ function parseMarkdown(content: string): string {
     // Italic
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
     // Unordered lists
     .replace(/^\- (.*$)/gm, '<li>$1</li>')
     .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    // Tables (basic support)
+    // Numbered lists
+    .replace(/^\d+\. (.*$)/gm, '<li>$1</li>')
+    // Tables
     .replace(/\|(.+)\|/g, (match) => {
       const cells = match.split('|').filter(Boolean).map(cell => cell.trim())
       if (cells.every(cell => cell.match(/^-+$/))) {
         return ''
       }
-      const isHeader = match.includes('---') === false
-      const tag = isHeader ? 'td' : 'td'
-      return '<tr>' + cells.map(cell => `<${tag}>${cell}</${tag}>`).join('') + '</tr>'
+      return '<tr>' + cells.map(cell => `<td>${cell}</td>`).join('') + '</tr>'
     })
     .replace(/(<tr>.*<\/tr>\n?)+/g, '<table>$&</table>')
-    // Paragraphs
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/^(?!<[huptol])/gm, '<p>')
-    .replace(/(?<![>])$/gm, '</p>')
-    // Clean up empty paragraphs
+    // Paragraphs - split by double newlines
+    .split(/\n\n+/)
+    .map(block => {
+      block = block.trim()
+      if (!block) return ''
+      // Don't wrap if already a block element or placeholder
+      if (block.match(/^<[huptbl]|^___CODEBLOCK/)) return block
+      return `<p>${block.replace(/\n/g, '<br>')}</p>`
+    })
+    .join('\n')
+
+  // 4. Restore inline code
+  inlineCode.forEach((code, index) => {
+    processed = processed.replace(`___INLINECODE_${index}___`, code)
+  })
+
+  // 5. Restore code blocks
+  codeBlocks.forEach((block, index) => {
+    processed = processed.replace(`___CODEBLOCK_${index}___`, block)
+  })
+
+  // 6. Clean up
+  processed = processed
     .replace(/<p><\/p>/g, '')
-    .replace(/<p>(<[huptol])/g, '$1')
-    .replace(/(<\/[huptol][^>]*>)<\/p>/g, '$1')
+    .replace(/<p>\s*<\/p>/g, '')
+    .replace(/<p>(<(?:h[1-6]|ul|ol|table|pre|blockquote))/g, '$1')
+    .replace(/(<\/(?:h[1-6]|ul|ol|table|pre|blockquote)>)<\/p>/g, '$1')
+
+  return processed
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 }
