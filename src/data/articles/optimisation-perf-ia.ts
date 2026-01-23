@@ -116,9 +116,9 @@ services:
 | \`maintenance_work_mem\` | 64MB | 128MB | Mémoire pour VACUUM |
 | \`random_page_cost\` | 4.0 | 1.1 | Optimisé pour SSD |
 
-## Résultat
+## Résultats : les chiffres
 
-Après redémarrage du container :
+Après redémarrage du container PostgreSQL :
 
 \`\`\`
  disk_reads | cache_hits | cache_hit_ratio
@@ -128,7 +128,51 @@ Après redémarrage du container :
 
 **De 50% à 99.87% de cache hit ratio.**
 
-Les requêtes COUNT passent de 2-7ms à < 1ms.
+### Benchmark complet : rdmpr-one vs Scalingo
+
+| Métrique | Staging (rdmpr-one) | Production (Scalingo) |
+|----------|---------------------|----------------------|
+| Frontend TTFB | ~186ms | ~181ms |
+| API externe | ~140ms | ~60ms |
+| API interne Docker | **~3ms** | N/A |
+
+Le vrai gain : les appels API server-side (SSR) passent de 60-140ms à **3ms**.
+
+### Récapitulatif des optimisations
+
+| Action | Avant | Après |
+|--------|-------|-------|
+| PostgreSQL shared_buffers | 128MB | 256MB |
+| PostgreSQL effective_cache_size | 512MB | 1GB |
+| API interne (Docker) | ~70ms HTTPS | ~3ms HTTP |
+| Frontend TTFB staging | ~200ms | ~186ms |
+
+## Impact sur ma stratégie de migration
+
+Je migre progressivement de Scalingo (PaaS) vers mon serveur dédié. Ces benchmarks ont clarifié la stratégie :
+
+### Apps avec SSR (Next.js, TanStack Start)
+
+**Verdict : migration idéale.**
+
+- Frontend + Backend sur le même serveur = appels internes à 3ms
+- Le TTFB est équivalent à Scalingo (~186ms vs ~181ms)
+- Le SSR bénéficie à fond du réseau Docker interne
+
+### Apps SPA (frontend statique)
+
+**Verdict : migration OK, latence comparable.**
+
+- Les appels API viennent du navigateur utilisateur
+- La latence dépend de la distance user ↔ serveur
+- Pour des utilisateurs européens : ~50-100ms (comme Scalingo, aussi en Europe)
+- Option : servir le frontend statique via CDN si besoin
+
+### Conclusion stratégique
+
+La différence de 60ms vs 140ms sur l'API directe vient de la distance géographique (mon laptop vs les datacenters). Pour les vrais utilisateurs dispersés en Europe, les deux solutions sont équivalentes.
+
+**Le vrai gain du serveur dédié** : pour les apps SSR, les appels API server-side passent de 60-140ms à 3ms. C'est un avantage que Scalingo ne peut pas offrir (frontend et backend sur des containers séparés).
 
 ## Ce que l'IA a aussi investigué
 
