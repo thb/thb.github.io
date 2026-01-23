@@ -23,8 +23,10 @@ import { claudeCodeTokens } from './claude-code-tokens'
 import { claudeCodeSkills } from './claude-code-skills'
 import { optimisationPerfIA } from './optimisation-perf-ia'
 import { metierChangeIA } from './metier-change-ia'
+import { testsE2EAgentsIA } from './tests-e2e-agents-ia'
 
 export const articles: Article[] = [
+  testsE2EAgentsIA,
   metierChangeIA,
   claudeCodeSkills,
   optimisationPerfIA,
