@@ -25,8 +25,10 @@ import { optimisationPerfIA } from './optimisation-perf-ia'
 import { metierChangeIA } from './metier-change-ia'
 import { testsE2EAgentsIA } from './tests-e2e-agents-ia'
 import { testsE2ERailsReact } from './tests-e2e-rails-react'
+import { modelisationIA } from './modelisation-ia'
 
 export const articles: Article[] = [
+  modelisationIA,
   testsE2ERailsReact,
   testsE2EAgentsIA,
   metierChangeIA,
